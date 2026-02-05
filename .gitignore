@@ -1,5 +1,14 @@
-#Ignore the data 
+# Ignore the data 
 data/raw/
 data/processed/
 data/
 *.pkl
+
+# Jupyter
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+Untitled.ipynb
+
+# OS Junk
+.DS_Store
+
