@@ -73,7 +73,8 @@ To run this project, the following system specifications are recommended:
 ### Step 1: Clone the repository
 ```bash
 git clone <repository-url>
-cd project_root
+cd project_root 
+```
 
 ### Step 2: Create a virtual environment
 python -m venv venv
@@ -92,7 +93,7 @@ python --version
 Recommended Python version: 3.10 or 3.11
 
 
-## Notebook Execution Order
+## Notebook Execution Order( Reproduction Instructions )
 
 The notebooks must be executed in the following order:
 
@@ -211,8 +212,8 @@ Authors
 Capstone Project – Winter 2026
 BSIT Program
 FDU Vancouver
-- Prakriti Dhital 
-- Madan Kumar Devkota 
-- Xingri Du 
+- Prakriti Dhital
+- Madan Kumar Devkota
+- Parsa Mokari 
 - Son Nguyen 
-- Parsa Mokari
+- Xingrui Du 
