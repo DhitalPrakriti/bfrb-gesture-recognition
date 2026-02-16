@@ -2,35 +2,95 @@
 
 ## Overview
 
-This project implements and evaluates multiple deep learning and machine learning models for gesture classification using wearable multi-sensor data. The goal is to detect Body-Focused Repetitive Behaviors (BFRBs) using IMU, thermopile, and Time-of-Flight (TOF) sensors.
+This project implements and evaluates multiple deep learning and machine learning models for gesture classification using wearable multi-sensor data. 
 
 The implementation follows the baseline methodology described in the reference paper and extends it with multiple model architectures and fusion strategies.
 
+The goal is to detect **Body-Focused Repetitive Behaviors (BFRBs)** using data collected from:
+
+- Inertial Measurement Unit (IMU)
+- Thermopile sensors
+- Time-of-Flight (TOF) proximity sensors
+
+The implementation follows the methodology described in **zhang_ryoo_mukherjee_2025.pdf** and reproduces the reported evaluation metrics:
+
+- **Binary F1-score (BFRB detection)**
+- **Macro-averaged F1-score (multi-class gesture classification)**
+
 ---
+
+## Objectives
+
+1. Perform 18-class gesture classification.
+2. Detect BFRB vs non-BFRB behaviors (binary detection).
+3. Compare multiple architectures including sensor fusion strategies.
+4. Reproduce baseline paper evaluation metrics.
+5. Analyze the effect of multi-sensor fusion.
 
 ## Project Structure
 
 project_root/
 │
 ├── data/
-│   ├── raw/
-│   └── processed/
+│ ├── raw/
+│ └── processed/
 │
 ├── notebooks/
-│   ├── 01_data_ingestion.ipynb
-│   ├── 02_eda_plots.ipynb
-│   ├── 03_data_preprocessing.ipynb
-│   ├── 04_models_paper.ipynb
-│   └── 05_evaluation.ipynb
+│ ├── 01_data_ingestion.ipynb
+│ ├── 02_eda_plots.ipynb
+│ ├── 03_data_preprocessing.ipynb
+│ ├── 04_models_paper.ipynb
+│ └── 05_evaluation.ipynb
 │
 ├── plots/
-│ ├── (generated figures)
-├
+│ ├── example_acc_signal.png
+│ ├── gesture_distribution.png
+│ ├── sequence_length_distribution.png
+│ └── tof_invalid_rate.png
+│
 ├── README.md
 ├── requirements.txt
 └── .gitignore
 
 ---
+
+## System Requirements
+
+To run this project, the following system specifications are recommended:
+
+1. Operating System: Windows 10+, macOS, or Linux  
+2. Python Version: 3.10 or 3.11  
+3. RAM: Minimum 8 GB (16 GB recommended for model training)  
+4. Disk Space: At least 2 GB available  
+5. CPU: Multi-core processor recommended  
+6. GPU: Optional (CUDA-supported GPU for faster training)  
+7. Virtual environment support (venv or Conda)  
+
+---
+
+## Setup & Installation
+
+### Step 1: Clone the repository
+```bash
+git clone <repository-url>
+cd project_root
+
+### Step 2: Create a virtual environment
+python -m venv venv
+
+### Step 3: Activate the environment
+Windows:
+venv\Scripts\activate
+Mac/Linux:
+source venv/bin/activate
+
+### Step 4: Install dependencies
+pip install -r requirements.txt
+
+### Step 5: Verify installation
+python --version
+Recommended Python version: 3.10 or 3.11
+
 
 ## Notebook Execution Order
 
@@ -72,6 +132,12 @@ The notebooks must be executed in the following order:
      - K+1 Macro-F1
    - Generates comparison table
 
+6. Check the plots/ directory for generated figures
+
+7. Check data/processed/ for saved outputs and evaluation 
+
+All notebooks must be executed sequentially.
+
 ---
 
 ## Models Implemented
@@ -85,29 +151,68 @@ The notebooks must be executed in the following order:
 | M5 | Intermediate Fusion architecture |
 | M6 | FFT features + Random Forest |
 
+Normalization is computed using training statistics only to prevent data leakage.
 ---
 
 ## Evaluation Metrics
-
+The project reports the following metrics:
 - Accuracy (18-class classification)
 - Macro-F1 (18-class)
-- Binary F1 (BFRB vs non-BFRB)
+- Binary F1 (BFRB vs non-BFRB detection)
 - Macro-F1 (K+1 grouped behavior)
 
-Late Fusion achieved the best overall performance.
+Binary F1 is the primary behavioral detection metric.
+
+## Final Results Summary
+Late Fusion (Model 4) achieved the best overall performance:
+- Binary F1 (BFRB detection): ~0.94
+- Macro-F1 (18 gestures): ~0.51
+- Accuracy: ~0.49
+
+Fusion architectures consistently outperformed single-sensor models.
 
 ---
 
-## Installation
+Validation & Generated Outputs
 
-Create a virtual environment and install dependencies:
+The following plots are automatically generated and saved in /plots:
+1. Sensor signal visualization
+2. Gesture class distribution
+3. Sequence length distribution
+4. TOF invalid rate analysis
 
-```bash
-pip install -r requirements.txt
-Recommended Python version: 3.10 or 3.11
+Evaluation results are saved as:
+
+data/processed/model_comparison_results.csv
 
 Reproducibility
 - Random seed fixed to 42
 - Sequence-level split prevents data leakage
 - Feature metadata saved separately
 - Model outputs saved for consistent evaluation
+
+Version Control Workflow
+- All development performed in properly named feature branches.
+- Pull Requests used for merging into the development branch.
+- No direct commits to the main branch.
+- Each team member contributed meaningful commits.
+
+Limitations
+
+- Only a single train/test split was used (no cross-validation).
+- Hyperparameters were not extensively optimized.
+- Training was performed on CPU; GPU optimization not explored.
+- Class imbalance handling techniques were not applied.
+- Sequence truncation may remove temporal information.
+- Random Forest baseline does not model temporal dependencies.
+- Real-time deployment performance was not evaluated.
+
+Authors
+Capstone Project – Winter 2026
+BSIT Program
+FDU Vancouver
+- Prakriti Dhital 
+- Madan Kumar Devkota 
+- Xingri Du 
+- Son Nguyen 
+- Parsa Mokari
