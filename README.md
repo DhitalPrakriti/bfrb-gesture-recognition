@@ -182,7 +182,7 @@ The following plots are automatically generated and saved in /plots:
 3. Sequence length distribution
 4. TOF invalid rate analysis
 
-Evaluation results are saved as:
+Evaluation results are saved (after running 05_evaluation.ipynb) as:
 
 data/processed/model_comparison_results.csv
 
