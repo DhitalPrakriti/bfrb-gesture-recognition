@@ -179,14 +179,16 @@ All notebooks must be executed sequentially.
 
 ## Models Implemented
 
-| Model | Description |
-|-------|-------------|
-| M1 | FFT-MLP using all 332 sensor features |
-| M2 | FFT-MLP using IMU + Thermopile |
-| M3 | CNN-BiLSTM using TOF sensor data |
-| M4 | Late Fusion (weighted ensemble of M2 + M3) |
-| M5 | Intermediate Fusion architecture |
-| M6 | FFT features + Random Forest |
+| Model | Description | Type |
+|-------|-------------|------|
+| M1 | FFT-MLP using all 332 sensor features | Baseline |
+| M2 | FFT-MLP using IMU + Thermopile | Baseline |
+| M3 | CNN-BiLSTM using TOF sensor data | Baseline |
+| M4 | Late Fusion (weighted ensemble of M2 + M3) | Baseline |
+| M5 | Intermediate Fusion architecture | Baseline |
+| M6 | FFT features + Random Forest | Baseline |
+| M7 | Transformer with token embeddings & self-attention | Novel NLP |
+| M8 | BiLSTM with token embeddings | Novel NLP |
 
 Normalization is computed using training statistics only to prevent data leakage.
 ---
