@@ -305,7 +305,7 @@ The NLP models achieve dramatically higher macro-averaged F1 scores (~85–86%) 
 - Sequence-level train/test split prevents data leakage across all models
 - NLP bin thresholds computed from training data only
 - All model outputs saved as files for consistent downstream evaluation
-- Feature metadata and vocabulary saved separately for transparency
+- Feature metadata and vocabulary saved separately for transparency.
 
 ---
 
