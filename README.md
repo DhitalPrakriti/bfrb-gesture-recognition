@@ -29,29 +29,37 @@ The implementation follows the methodology described in **zhang_ryoo_mukherjee_2
 
 ## Project Structure
 
+```text
 project_root/
 │
 ├── data/
-│ ├── raw/
-│ └── processed/
+│   ├── raw/
+│   └── processed/
 │
 ├── notebooks/
-│ ├── 01_data_ingestion.ipynb
-│ ├── 02_eda_plots.ipynb
-│ ├── 03_data_preprocessing.ipynb
-│ ├── 04_models_paper.ipynb
-│ └── 05_evaluation.ipynb
+│   ├── 01_data_ingestion.ipynb
+│   ├── 02_eda_plots.ipynb
+│   ├── 03_data_preprocessing.ipynb
+│   ├── 04_models_paper.ipynb
+│   ├── 05_evaluation.ipynb
+│   ├── 06_nlp_datapreprocessing.ipynb
+│   ├── 07_model_nlp_transformer.ipynb
+│   ├── 08_model_nlp_bilstm.ipynb
+│   ├── 09_evaluation_comparison.ipynb
+│   └── 10_plot_generation.ipynb
 │
 ├── plots/
-│ ├── example_acc_signal.png
-│ ├── gesture_distribution.png
-│ ├── sequence_length_distribution.png
-│ └── tof_invalid_rate.png
+│   ├── example_acc_signal.png
+│   ├── gesture_distribution.png
+│   ├── sequence_length_distribution.png
+│   ├── tof_invalid_rate.png
+│   ├── comparison_binary_f1.png
+│   ├── comparison_macro_f1.png
+│   └── nlp_best_confusion_matrix.png
 │
 ├── README.md
 ├── requirements.txt
 └── .gitignore
-
 ---
 
 ## System Requirements
@@ -131,26 +139,56 @@ The notebooks must be executed in the following order:
      - Macro-F1 (18-class)
      - Binary F1 (BFRB detection)
      - K+1 Macro-F1
-   - Generates comparison table
+   - Generates baseline comparison table
 
-6. Check the plots/ directory for generated figures
+6. **06_nlp_datapreprocessing.ipynb**
+   - Discretizes IMU and Thermopile data into text tokens (low, medium, high)
+   - Builds a vocabulary mapping for NLP models
+   - Saves:
+     - `train_text_seq.pkl`
+     - `test_text_seq.pkl`
+     - `nlp_vocab.pkl`
+     - `nlp_feature_thresholds.pkl`
+     - `nlp_max_seq_len.pkl`
 
-7. Check data/processed/ for saved outputs and evaluation 
+7. **07_model_nlp_transformer.ipynb**
+   - Implements a Transformer sequence classifier
+   - Utilizes positional encoding and token embeddings
+   - Saves prediction outputs to `transformer_results.pkl`
+
+8. **08_model_nlp_bilstm.ipynb**
+   - Implements a BiLSTM classifier using learned token embeddings
+   - Saves prediction outputs to `bilstm_results.pkl`
+
+9. **09_evaluation_comparison.ipynb**
+   - Compares baseline paper models against novel NLP models
+   - Computes and combines final evaluation metrics
+   - Saves `all_model_comparison.csv`
+
+10. **10_plot_generation.ipynb**
+    - Generates final visual comparisons
+    - Creates bar charts for Binary and Macro F1-scores
+    - Creates confusion matrix for the best NLP model
+
+11. Check the `plots/` directory for generated figures.
+
+12. Check `data/processed/` and `results/` for saved outputs and evaluation tables.
 
 All notebooks must be executed sequentially.
-
 ---
 
 ## Models Implemented
 
-| Model | Description |
-|-------|-------------|
-| M1 | FFT-MLP using all 332 sensor features |
-| M2 | FFT-MLP using IMU + Thermopile |
-| M3 | CNN-BiLSTM using TOF sensor data |
-| M4 | Late Fusion (weighted ensemble of M2 + M3) |
-| M5 | Intermediate Fusion architecture |
-| M6 | FFT features + Random Forest |
+| Model | Description | Type |
+|-------|-------------|------|
+| M1 | FFT-MLP using all 332 sensor features | Baseline |
+| M2 | FFT-MLP using IMU + Thermopile | Baseline |
+| M3 | CNN-BiLSTM using TOF sensor data | Baseline |
+| M4 | Late Fusion (weighted ensemble of M2 + M3) | Baseline |
+| M5 | Intermediate Fusion architecture | Baseline |
+| M6 | FFT features + Random Forest | Baseline |
+| M7 | Transformer with token embeddings & self-attention | Novel NLP |
+| M8 | BiLSTM with token embeddings | Novel NLP |
 
 Normalization is computed using training statistics only to prevent data leakage.
 ---
