@@ -51,7 +51,7 @@ project_root/
 │   └── 10_plot_generation.ipynb
 │
 ├── results/
-│   ├── transformer_results.pkl
+│   ├── transformer_results.pkl      # auto-generated after running notebooks 07–09
 │   ├── bilstm_results.pkl
 │   └── all_model_comparison.csv
 │
