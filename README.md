@@ -1,5 +1,5 @@
 # BFRB Gesture Recognition Using Multi-Sensor Deep Learning
-## AI/ML Capstone Project — Wearable Sensor Classification with Transformers and BiLSTM
+AI/ML Capstone Project — Wearable Sensor Classification with Transformers and BiLSTM
 
 ### Overview
 
