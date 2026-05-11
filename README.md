@@ -405,7 +405,15 @@ The NLP models achieve dramatically higher macro-averaged F1 scores (~85–86%) 
 ---
 
 ## Authors
+This repository contains a portfolio version of a collaborative university capstone project completed as part of the BSIT program at Fairleigh Dickinson University Vancouver.
 
+Contributors:
+
+Prakriti Dhital
+Madan Kumar Devkota
+Parsa Mokari
+Son Nguyen
+Xingrui Du
 Capstone Project – Winter 2026
 BSIT Program
 FDU Vancouver
