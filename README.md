@@ -1,34 +1,81 @@
 # BFRB Gesture Recognition Using Multi-Sensor Deep Learning
-AI/ML Capstone Project — Wearable Sensor Classification with Transformers and BiLSTM
 
-### Overview
+## AI/ML Capstone Project — Wearable Sensor Classification with Transformers and BiLSTM
 
 This project implements and evaluates multiple deep learning and machine learning models for gesture classification using wearable multi-sensor data. The implementation follows the baseline methodology described in the reference paper and extends it with multiple model architectures, fusion strategies, and novel NLP-based approaches.
 
-The goal is to detect Body-Focused Repetitive Behaviors (BFRBs) using data collected from:
+The system processes data collected from:
+- Inertial Measurement Unit (IMU) sensors
+- Thermopile sensors
+- Time-of-Flight (TOF) proximity sensors
 
-- **Inertial Measurement Unit (IMU)**
-- **Thermopile sensors**
-- **Time-of-Flight (TOF) proximity sensors**
+The project reproduces baseline architectures from prior research and extends them with novel NLP-based approaches using:
+- Transformer architectures
+- Bidirectional LSTM (BiLSTM) networks
+- Tokenized sensor-sequence representations
 
-The implementation reproduces evaluation metrics from zhang_ryoo_mukherjee_2025.pdf and introduces novel NLP-based models for comparison:
+---
 
-- Binary F1-score (BFRB detection)
-- Macro-averaged F1-score (multi-class gesture classification)
+## Key Highlights
+
+- Built an end-to-end multimodal sensor classification pipeline
+- Implemented and evaluated 8 machine learning / deep learning models
+- Developed NLP-inspired Transformer and BiLSTM architectures in PyTorch
+- Converted continuous sensor streams into tokenized sequence representations
+- Achieved:
+  - **90.93% Binary F1-score** using Transformer model
+  - **85.98% Macro F1-score** using Transformer model
+- Compared NLP models against reproduced paper baselines
+- Designed a reproducible notebook-based experimentation workflow
 
 ---
 
-## Objectives
 
-- Perform 18-class gesture classification.
-- Detect BFRB vs. non-BFRB behaviors (binary detection).
-- Compare multiple architectures including sensor fusion strategies.
-- Reproduce baseline paper evaluation metrics.
-- Analyze the effect of multi-sensor fusion.
-- Design and evaluate novel NLP-based BFRB detection models (Milestone 2).
-- Compare NLP models against paper baselines using binary F1 and macro-averaged F1.
+# Model Architecture Overview
+
+## Baseline Models
+
+| Model | Description |
+|---|---|
+| FFT-MLP | FFT feature extraction with MLP classifier |
+| CNN-BiLSTM | CNN + BiLSTM sequence modeling |
+| Late Fusion | Weighted ensemble of multimodal models |
+| Intermediate Fusion | Shared feature fusion architecture |
+| FFT + Random Forest | Classical ML baseline using FFT features |
 
 ---
+
+## NLP-Based Models
+
+### Transformer Model
+Custom Transformer architecture implemented in PyTorch using:
+- Token embeddings
+- Sinusoidal positional encoding
+- Multi-head self-attention
+- Transformer encoder layers
+- Mean pooling
+- Fully connected classifier
+
+### BiLSTM Model
+Bidirectional sequence model implemented using:
+- Learned token embeddings
+- 2-layer BiLSTM
+- Packed padded sequences
+- Mean pooled hidden states
+- Linear classification head
+
+---
+
+# Results
+
+| Model | Binary F1 | Macro F1 |
+|---|---|---|
+| Late Fusion | **94.28%** | 50.14% |
+| Transformer (NLP) | 90.93% | **85.98%** |
+| BiLSTM (NLP) | 89.98% | 84.19% |
+
+## Key Observation
+The NLP-based approaches achieved significantly higher macro-averaged F1 scores compared to reproduced baseline models, indicating improved class-balanced performance for gesture recognition.
 
 ## Project Structure
 
@@ -98,6 +145,19 @@ pathlib (standard library)
 
 > See `requirements.txt` for the full list of pinned dependencies.
 
+
+Dataset
+
+This project uses multimodal wearable sensor data for gesture classification and BFRB detection.
+
+The dataset includes:
+
+Accelerometer data
+Rotation data
+Thermopile sensor readings
+Time-of-Flight proximity sensor signals
+
+Raw dataset files are not included in this repository.
 ---
 
 ## Setup Instructions
